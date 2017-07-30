@@ -1,0 +1,55 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='icon', href='../../favicon.ico')
+    title Dashboard Template
+    link(href='/components/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/css/dashboard.css', rel='stylesheet')
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') 博客后台管理
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/posts') 首页
+            li
+              a(href='/admin/loginout') 注销
+          form.navbar-form.navbar-right(method='get', action='/admin/posts/search', id="searchform")
+            input.form-control(type='text', placeholder='Search...', name="searchfor", id="searchfor")
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li(class={active: pageName === "/admin/posts"})
+              a(href='/admin/posts/') 文章列表
+            li(class={active: pageName === "/admin/posts/add"})
+              a(href='/admin/posts/add') 添加文章
+        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+          block post_content
+    script(src='/components/jquery/dist/jquery.min.js')
+    script(src='/components/bootstrap/js/bootstrap.min.js')
+    script(type='text/javascript').
+      $(function () {
+        $("#searchform").submit(function (e) {
+          var value = $('#searchfor').val();
+
+          if (value == '') {
+            alert("搜索内容为空");
+            return false;
+          }
+          return true;
+        });
+      });

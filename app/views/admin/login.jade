@@ -1,0 +1,43 @@
+doctype html
+html(lang='zh-CN')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Bootstrap 101 Template
+    link(href='/components/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+  body(style='background: #F0F0F0')
+    .container(style='margin-top: 10px;')
+      .row
+        .col-md-4
+        .col-md-4
+          if _error != ''
+            .alert.alert-danger(role='alert', style='padding: 0.35rem 1.25rem;')
+              =_error
+    .container
+      form(method='post', action='/admin/login', id="loginform")
+        .form-group
+          label(for='exampleInputEmail1') 用户名
+          input#exampleInputEmail1.form-control(type='text', placeholder='username', name='username')
+        .form-group
+          label(for='exampleInputPassword1') 密码
+          input#exampleInputPassword1.form-control(type='password', placeholder='Password', name='password')
+        button.btn.btn-primary(type='submit') 登录
+    script(src='/components/jquery/dist/jquery.min.js')
+    script(src='/components/bootstrap/js/bootstrap.min.js')
+    script(type='text/javascript').
+      $(function () {
+        function setFromPos(){
+          $('#loginform').css('width', $('.container').width() * 0.3);
+
+          var window_height = $(window).height();
+          var form_height = $('#loginform').height();
+          var margin_top = ((window_height - form_height) / 2) * 0.8;
+          var margin_left = $('.container').width() * 0.32;
+
+          $('#loginform').css("margin-top", margin_top).css("margin-left", margin_left);
+        }
+        setFromPos();
+
+        $(window).resize(setFromPos);
+      });

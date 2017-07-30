@@ -1,0 +1,32 @@
+.container.middle-main
+  .row
+    // /.blog-main
+    .col-sm-8.blog-main
+      each post in posts
+        div.perpost
+          h3.post-title
+            a(href="/posts/view/" + post._id)
+              =post.title
+          div.post-abstract
+            =truncate(post.content, 100)
+          div.post-meta
+            span.post-created
+              =moment(post.created).format('YYYY-MM-DD')
+            span &nbsp;&nbsp;&nbsp;&nbsp;
+            span.post-link
+              a(href="/posts/view/" + post._id) 查看全文
+    // /.blog-main
+    // /.blog-sidebar
+    .col-sm-3.col-sm-offset-1.blog-sidebar
+      .sidebar-module
+        h4 友情链接
+        ol.list-unstyled
+          li
+            a(href='#') GitHub
+          li
+            a(href='#') Twitter
+          li
+            a(href='#') Facebook
+    // /.blog-sidebar
+    // /.row
+    // /.container

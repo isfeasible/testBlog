@@ -1,0 +1,25 @@
+extends layout
+
+block post_content
+  h2.sub-header 搜索结果
+  .table-responsive
+    div.panel.panel-default
+      table.table
+        thead
+          tr
+            th Title
+            th CreatedTime
+            th Options
+        tbody
+          each post in posts
+            tr
+              td
+                a(href="/posts/view/" + post._id)
+                  =post.title
+              td
+                =moment(post.created).format('YYYY-MM-DD HH:mm:ss')
+              td
+                div.btn-group
+                  a.btn.btn-default(href="/posts/view/" + post._id, role='button') 查看
+                  a.btn.btn-default(href="/admin/posts/edit/" + post._id, role='button') 编辑
+                  a.btn.btn-default(href="/admin/posts/delete/" + post._id, role='button') 删除

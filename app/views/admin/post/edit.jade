@@ -1,0 +1,46 @@
+doctype html
+html(lang='zh')
+  head
+    meta(charset='utf-8')
+    title @links - Editor.md examples
+    link(rel='stylesheet', href='/components/editor.md/examples/css/style.css')
+    link(rel='stylesheet', href='/components/editor.md/css/editormd.css')
+    link(rel='shortcut icon', href='https://pandao.github.io/editor.md/favicon.ico', type='image/x-icon')
+  body
+    #datafield(style='display:none') #{post.content}
+    #layout
+      header
+        h1(style='display:inline-block;float:left;') 编辑文章
+        h1(style='display:inline-block;float:right')
+          a(href="/admin/posts/") 后台
+      form(method='post', action='/admin/posts/edit/' + post._id, id='tform')
+        #test-editormd
+        input(type='text', name='_id', style='display:none', value= post._id)
+        input(type='text', name='created', style='display:none', value= post.created)
+        div(style='width:90%;margin: 10px auto;')
+          input(type='submit', name='submit', value='提交文章', style='padding: 5px;')
+    script(src='/components/editor.md/examples/js/jquery.min.js')
+    script(src='/components/editor.md/editormd.js')
+    script(type='text/javascript').
+      var testEditor;
+      $(function () {
+        testEditor = editormd("test-editormd", {
+          width: "90%",
+          height: 800,
+          syncScrolling: "single",
+          path: "/components/editor.md/lib/",
+          appendMarkdown: $("#datafield").text()
+        });
+
+        $("#tform").submit(function (e) {
+          var bcontent = testEditor.getMarkdown();
+
+          var objRegExp = /^# .+\n\n*.+/;
+          var panduan = objRegExp.test(bcontent);
+          if (!panduan) {
+            alert("1文章格式不对，提交失败");
+            return false;
+          }
+          return true;
+        });
+      });
